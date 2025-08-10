@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purin's Note - 메모 & 생산성 앱</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 상단 상태바 -->
+        <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+                <i class="fas fa-wifi"></i>
+                <i class="fas fa-battery-three-quarters"></i>
+            </div>
+        </div>
+
+        <!-- 메인 헤더 -->
+        <header class="main-header">
+            <h1 class="app-title">Purin's Note</h1>
+            <div class="header-actions">
+                <!-- 로그인 전 상태 -->
+                <div id="guestActions" class="guest-actions">
+                    <button class="signup-btn" id="signupBtn">
+                        <i class="fas fa-user-plus"></i>
+                        <span>회원가입</span>
+                    </button>
+                    <div class="user-profile" id="userProfile">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                </div>
+                
+                <!-- 로그인 후 상태 -->
+                <div id="userActions" class="user-actions" style="display: none;">
+                    <div class="welcome-message" id="welcomeMessage">
+                        <span id="userName">사용자</span>님 환영합니다
+                    </div>
+                    <button class="logout-btn" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>로그아웃</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- 카테고리 카드 섹션 -->
+        <div class="category-section">
+            <div class="category-card journal-card" data-category="journal">
+                <div class="card-content">
+                    <h3>Journal</h3>
+                    <p class="last-edited">Last edited: <span id="journalDate">7 Nov, 24</span></p>
+                    <div class="card-illustration">
+                        <i class="fas fa-headphones"></i>
+                        <i class="fas fa-laptop"></i>
+                        <i class="fas fa-lightbulb"></i>
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-card quick-notes-card" data-category="quick-notes">
+                <div class="card-content">
+                    <h3>Quick Notes</h3>
+                    <p class="last-edited">Last edited: <span id="quickNotesDate">13 Nov, 24</span></p>
+                    <div class="card-illustration">
+                        <i class="fas fa-pencil-alt"></i>
+                        <i class="fas fa-clipboard-list"></i>
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-card questionnaires-card" data-category="questionnaires">
+                <div class="card-content">
+                    <h3>Questionnaires</h3>
+                    <p class="last-edited">Last edited: <span id="questionnairesDate">18 Dec, 24</span></p>
+                    <div class="card-illustration">
+                        <i class="fas fa-question-circle"></i>
+                        <i class="fas fa-lightbulb"></i>
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-card goals-card" data-category="goals">
+                <div class="card-content">
+                    <h3>Life systems & goals</h3>
+                    <p class="last-edited">Last edited: <span id="goalsDate">22 Dec, 24</span></p>
+                    <div class="card-illustration">
+                        <i class="fas fa-bullseye"></i>
+                        <i class="fas fa-chart-line"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 검색 및 새 메모 버튼 -->
+        <div class="action-section">
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchInput" placeholder="Search in all notes..." class="search-input">
+            </div>
+            <button class="new-note-btn">
+                <i class="fas fa-plus"></i>
+                <span>New Note</span>
+            </button>
+        </div>
+
+        <!-- 메모 목록 컨테이너 -->
+        <div class="notes-container" id="memoContainer">
+            <!-- 메모들이 여기에 동적으로 추가됩니다 -->
+        </div>
+    </div>
+
+    <!-- 메모 편집 모달 -->
+    <div class="modal" id="memoModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">새 메모</h2>
+                <button class="close-btn" id="closeBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="memoForm">
+                    <div class="category-selector">
+                        <label for="memoCategory">카테고리:</label>
+                        <select id="memoCategory" class="memo-category-select">
+                            <option value="journal">Journal</option>
+                            <option value="quick-notes">Quick Notes</option>
+                            <option value="questionnaires">Questionnaires</option>
+                            <option value="goals">Life systems & goals</option>
+                        </select>
+                    </div>
+                    <input type="text" id="memoTitle" placeholder="제목을 입력하세요" class="memo-title-input">
+                    <textarea id="memoContent" placeholder="내용을 입력하세요" class="memo-content-input"></textarea>
+                    <div class="modal-actions">
+                        <button type="submit" class="save-btn" id="saveBtn">저장</button>
+                        <button type="button" class="cancel-btn" id="cancelBtn">취소</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
